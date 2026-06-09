@@ -135,7 +135,7 @@ const orcamentoSchema = z.object({
   email: z.string().trim().email("Email inválido").max(255),
   destino: z.string().trim().min(2, "Destino obrigatório").max(100),
   data: z.string().min(1, "Data prevista obrigatória"),
-  passageiros: z.coerce.number().min(1, "Mín. 1").max(50),
+  passageiros: z.string().min(1, "Mín. 1").max(3),
   mensagem: z.string().trim().max(1000).optional().or(z.literal("")),
 });
 type OrcamentoForm = z.infer<typeof orcamentoSchema>;
