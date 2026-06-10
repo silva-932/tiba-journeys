@@ -2,24 +2,17 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import logoAsset from "@/assets/tiba-logo.asset.json";
 
-const KEY = "tiba_intro_seen_v1";
-
 export function IntroExperience() {
-  const [show, setShow] = useState(false);
+  // Intro reproduz em todo carregamento/refresh da página (sem persistência).
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!window.localStorage.getItem(KEY)) {
-      setShow(true);
-      const t = setTimeout(() => dismiss(), 4800);
-      return () => clearTimeout(t);
-    }
+    const t = setTimeout(() => setShow(false), 4800);
+    return () => clearTimeout(t);
   }, []);
 
-  const dismiss = () => {
-    try { window.localStorage.setItem(KEY, "1"); } catch { /* ignore */ }
-    setShow(false);
-  };
+  const dismiss = () => setShow(false);
 
   return (
     <AnimatePresence>
